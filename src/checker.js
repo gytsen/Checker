@@ -5,18 +5,17 @@ function getFullType(variable){
     
     //now find out the specific details about this variable!
     if(simpleType === 'number'){
-        console.log("fired");
         trueType = getNumberType(variable);
     }else if(simpleType === 'string'){
-        trueType = this.getStringInfo(variable);
+        trueType = getStringInfo(variable);
     }else if(simpleType === 'object'){ 
-        trueType = this.getObjectInfo(variable);
+        trueType = getObjectInfo(variable);
     }else if(simpleType === 'boolean'){
-        trueType = simpleType;
+        trueType = '' + simpleType + ' which has a value of: ' + variable;
     }
     
     
-    var fullType = "" + variable + ' type is: ' + trueType;
+    var fullType = 'variable\'s type is: ' + trueType;
     return fullType;
 }
 
@@ -26,18 +25,37 @@ function printType (variable){
 }
 
 function getNumberType(variable){
-    var subType = (variable % 1 === 0) ? 'Integer Number' : 'Floating Point Number';
-    return subType;
+    if(isNaN(variable)){
+        return 'Not a Number';
+    }else if(!isFinite(variable)){
+        return 'Infinite number';
+    }else{
+        var subType = (variable % 1 === 0) ? 'Integer Number' : 'Floating Point Number';
+        return subType;
+    }
 }
 
-function getObjectInfo(variable){
-    var variableName = variable.name;
-    console.log(variableName);
+function getObjectInfo(variable){ 
+    for(var prop in variable){}
     return 'Object'
 }
 
 function getStringInfo(variable){
     //these are for string primitives, not the new String(); form
-    var numeric = variable.contains('[0-9]');
-    return 'not implemented';
+    var stringInfo = '';
+    
+    if(variable === ''){
+        stringInfo += 'Empty string ';
+    }else if(/^\d+$/.test(variable)) { //regex for checking if string contains only digits
+        stringInfo += 'Pure positive numeric string ';
+    }else if(/^[a-zA-Z]+$/.test(variable)){
+        stringInfo += 'Pure alphabetical string ';
+    }else{
+        stringInfo += 'Mixed string ';
+    }
+    
+    var length = variable.length;
+    stringInfo += 'and has length: ' + length;
+    return stringInfo;
 }
+
