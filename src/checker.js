@@ -14,6 +14,8 @@ function getFullType(variable) {
         trueType = '' + simpleType + ' which has a value of: ' + variable;
     } else if (simpleType === 'undefined') {
         trueType = 'Undefined';
+    }else if (simpleType === 'function') {
+        trueType = 'Function object';
     }
 
     var fullType = 'variable\'s type is: ' + trueType;
