@@ -41,9 +41,11 @@ function getObjectInfo(variable) {
         return 'Null'
     }
     var objName = '';
-    if (variable.name) {
-        objName = 'It\'s name is: ' + variable.name + '\n';
-    }
+    var objInstance =  variable.constructor;
+    //variable.constructor returns: function Object() { [native code] }, so split it to: "Object()"
+    var objType = objInstance.toString().split(" ")[1];
+    objName = 'It\'s \'type\' is: ' + objType + '\n';
+
     var objInfo = 'and it\'s properties are: \n';
     for (var prop in variable) {
         var value = variable[prop];
@@ -60,7 +62,7 @@ function getStringInfo(variable) {
         stringInfo += 'Empty string ';
     } else if (/^\d+$/.test(variable)) { //regex for checking if string contains only digits
         stringInfo += 'Pure positive numeric string ';
-    } else if (/^[a-zA-Z]+$/.test(variable)) {
+    } else if (/^[a-zA-Z]+$/.test(variable)) { //regex for checking if string contains only letters
         stringInfo += 'Pure alphabetical string ';
     } else {
         stringInfo += 'Mixed string ';
