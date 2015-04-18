@@ -1,27 +1,3 @@
-function getFullType(variable) {
-    //first get the simple type of a given variable
-    var simpleType = typeof variable;
-    var trueType;
-
-    //now find out the specific details about this variable!
-    if (simpleType === 'number') {
-        trueType = getNumberType(variable);
-    } else if (simpleType === 'string') {
-        trueType = getStringInfo(variable);
-    } else if (simpleType === 'object') {
-        trueType = getObjectInfo(variable);
-    } else if (simpleType === 'boolean') {
-        trueType = '' + simpleType + ' which has a value of: ' + variable;
-    } else if (simpleType === 'undefined') {
-        trueType = 'Undefined';
-    }else if (simpleType === 'function') {
-        trueType = 'Function object';
-    }
-
-    var fullType = 'variable\'s type is: ' + trueType;
-    return fullType;
-}
-
 function printType(variable) {
     var trueType = getFullType(variable);
     console.log(trueType);
@@ -40,7 +16,7 @@ function getNumberType(variable) {
 
 function getObjectInfo(variable) {
     if (variable === null) { //catch the typeof null === 'object' bug
-        return 'Null'
+        return 'Null';
     }
     var objName = '';
     var objInstance = variable.constructor;
@@ -55,7 +31,7 @@ function getObjectInfo(variable) {
             var additionalInfo = getShortObjectInfo(value, 1);
             objInfo += prop + ':' + additionalInfo + '\n';
         } else {
-            objInfo += prop + ':' + value + '\n'
+            objInfo += prop + ':' + value + '\n';
         }
     }
     return 'Object\n' + objName + objInfo;
@@ -69,7 +45,7 @@ function getShortObjectInfo(variable, depth) {
     //their level of depth and way of nesting
     var tabs = '';
     for (var i = 0; i < depth; i++) {
-        tabs += '\t'
+        tabs += '\t';
     }
     var objName = '';
     var objInstance = variable.constructor;
@@ -84,7 +60,7 @@ function getShortObjectInfo(variable, depth) {
             var additionalInfo = getShortObjectInfo(value, depth + 1);
             objInfo += tabs + prop + ':' + additionalInfo + '\n';
         } else {
-            objInfo += tabs + prop + ':' + value + '\n'
+            objInfo += tabs + prop + ':' + value + '\n';
         }
     }
     return objName + objInfo + tabs + '}';
@@ -107,4 +83,29 @@ function getStringInfo(variable) {
     var length = variable.length;
     stringInfo += 'and has length: ' + length;
     return stringInfo;
+}
+
+
+function getFullType(variable) {
+    //first get the simple type of a given variable
+    var simpleType = typeof variable;
+    var trueType;
+
+    //now find out the specific details about this variable!
+    if (simpleType === 'number') {
+        trueType = getNumberType(variable);
+    } else if (simpleType === 'string') {
+        trueType = getStringInfo(variable);
+    } else if (simpleType === 'object') {
+        trueType = getObjectInfo(variable);
+    } else if (simpleType === 'boolean') {
+        trueType = '' + simpleType + ' which has a value of: ' + variable;
+    } else if (simpleType === 'undefined') {
+        trueType = 'Undefined';
+    } else if (simpleType === 'function') {
+        trueType = 'Function object';
+    }
+
+    var fullType = 'variable\'s type is: ' + trueType;
+    return fullType;
 }
