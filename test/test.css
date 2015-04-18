@@ -1,0 +1,25 @@
+body {
+    margin-top: 20%;
+    font-family: verdana;
+    background: #0055FF;
+}
+
+.testButton {
+    background: #CCCCCC;
+    border-radius: 3px ;
+    border: 1px ;
+    position: inherit;
+    margin-left: 15%;
+    
+}
+
+.container {
+  position: relative;
+  padding-left: 40%;
+  padding-right: 43%;
+}
+
+h1 {
+    margin-left: 40%;
+    margin-right: 50%;
+}

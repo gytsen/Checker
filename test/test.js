@@ -1,4 +1,4 @@
-(function runTests(){
+function runTests(){
     printType(3);
     printType(3.14);
     printType('314');
@@ -16,4 +16,4 @@
         d: 5   
     });
     printType([1,2,3,4,5]);
-})();
+}
