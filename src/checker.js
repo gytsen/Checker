@@ -41,11 +41,16 @@ function getObjectInfo(variable){
     if(variable === null){ //catch the typeof null === 'object' bug
         return 'Null'
     }
+    var objName = '';
+    if(variable.name){
+        objName = 'It\'s name is: ' + variable.name + '\n';
+    }
     var objInfo = 'and it\'s properties are: \n';
     for(var prop in variable){
-        objInfo += prop + '\n'
+        var value = variable[prop];
+        objInfo += prop + ':' + value + '\n'
     }
-    return 'Object\n' + objInfo;
+    return 'Object\n' + objName + objInfo;
 }
 
 function getStringInfo(variable){
