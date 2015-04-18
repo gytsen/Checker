@@ -38,26 +38,27 @@ function getObjectInfo(variable) {
 }
 
 function getShortObjectInfo(variable, depth) {
+    var tabs, i, objName, objInstance, objType, objInfo, prop, additionalInfo;
     if (variable === null) {
         return 'Null';
     }
     //pretty indent the objects so you can clearly see
     //their level of depth and way of nesting
-    var tabs = '';
-    for (var i = 0; i < depth; i++) {
+    tabs = '';
+    for (i = 0; i < depth; i++) {
         tabs += '\t';
     }
-    var objName = '';
-    var objInstance = variable.constructor;
+    objName = '';
+    objInstance = variable.constructor;
     //variable.constructor returns: function Object() { [native code] }, so split it to: "Object()"
-    var objType = objInstance.toString().split(" ")[1];
+    objType = objInstance.toString().split(" ")[1];
     objName = ' ' + objType + '{\n';
 
-    var objInfo = '';
-    for (var prop in variable) {
+    objInfo = '';
+    for (prop in variable) {
         var value = variable[prop];
         if (typeof value === 'object') {
-            var additionalInfo = getShortObjectInfo(value, depth + 1);
+            additionalInfo = getShortObjectInfo(value, depth + 1);
             objInfo += tabs + prop + ':' + additionalInfo + '\n';
         } else {
             objInfo += tabs + prop + ':' + value + '\n';
