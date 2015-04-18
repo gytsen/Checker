@@ -12,6 +12,8 @@ function getFullType(variable){
         trueType = getObjectInfo(variable);
     }else if(simpleType === 'boolean'){
         trueType = '' + simpleType + ' which has a value of: ' + variable;
+    }else if(simpleType === 'undefined'){
+        trueType = 'Undefined';
     }
     
     
@@ -36,8 +38,14 @@ function getNumberType(variable){
 }
 
 function getObjectInfo(variable){ 
-    for(var prop in variable){}
-    return 'Object'
+    if(variable === null){ //catch the typeof null === 'object' bug
+        return 'Null'
+    }
+    var objInfo = 'and it\'s properties are: \n';
+    for(var prop in variable){
+        objInfo += prop + '\n'
+    }
+    return 'Object\n' + objInfo;
 }
 
 function getStringInfo(variable){
