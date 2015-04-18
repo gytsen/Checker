@@ -64,7 +64,7 @@ function getShortObjectInfo(variable, depth) {
         return 'Null';
     }
     //pretty indent the objects so you can clearly see
-    //their level of depth
+    //their level of depth and way of nesting
     var tabs = '';
     for (var i = 0; i < depth; i++) {
         tabs += '\t'

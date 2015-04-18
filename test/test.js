@@ -29,7 +29,13 @@ function runTests(){
                 f: function(){
                     return 'Nobody ever visits me here! :(';
                 },
-                g: 3
+                g: 3,
+                h: null,
+                i: {
+                    j: function(){
+                        return 'Bro, you know nothin\'';
+                    }
+                }
             }
         }
     });
