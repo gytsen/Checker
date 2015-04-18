@@ -41,7 +41,7 @@ function getObjectInfo(variable) {
         return 'Null'
     }
     var objName = '';
-    var objInstance =  variable.constructor;
+    var objInstance = variable.constructor;
     //variable.constructor returns: function Object() { [native code] }, so split it to: "Object()"
     var objType = objInstance.toString().split(" ")[1];
     objName = 'It\'s \'type\' is: ' + objType + '\n';
@@ -49,9 +49,43 @@ function getObjectInfo(variable) {
     var objInfo = 'and it\'s properties are: \n';
     for (var prop in variable) {
         var value = variable[prop];
-        objInfo += prop + ':' + value + '\n'
+        if (typeof value === 'object') {
+            var additionalInfo = getShortObjectInfo(value, 1);
+            objInfo += prop + ':' + additionalInfo + '\n';
+        } else {
+            objInfo += prop + ':' + value + '\n'
+        }
     }
     return 'Object\n' + objName + objInfo;
+}
+
+function getShortObjectInfo(variable, depth) {
+    if (variable === null) {
+        return 'Null';
+    }
+    //pretty indent the objects so you can clearly see
+    //their level of depth
+    var tabs = '';
+    for (var i = 0; i < depth; i++) {
+        tabs += '\t'
+    }
+    var objName = '';
+    var objInstance = variable.constructor;
+    //variable.constructor returns: function Object() { [native code] }, so split it to: "Object()"
+    var objType = objInstance.toString().split(" ")[1];
+    objName = ' ' + objType + '{\n';
+
+    var objInfo = '';
+    for (var prop in variable) {
+        var value = variable[prop];
+        if (typeof value === 'object') {
+            var additionalInfo = getShortObjectInfo(value, depth + 1);
+            objInfo += tabs + prop + ':' + additionalInfo + '\n';
+        } else {
+            objInfo += tabs + prop + ':' + value + '\n'
+        }
+    }
+    return objName + objInfo + tabs + '}';
 }
 
 function getStringInfo(variable) {
