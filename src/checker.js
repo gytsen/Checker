@@ -1,74 +1,72 @@
-function getFullType(variable){
+function getFullType(variable) {
     //first get the simple type of a given variable
     var simpleType = typeof variable;
     var trueType;
-    
+
     //now find out the specific details about this variable!
-    if(simpleType === 'number'){
+    if (simpleType === 'number') {
         trueType = getNumberType(variable);
-    }else if(simpleType === 'string'){
+    } else if (simpleType === 'string') {
         trueType = getStringInfo(variable);
-    }else if(simpleType === 'object'){ 
+    } else if (simpleType === 'object') {
         trueType = getObjectInfo(variable);
-    }else if(simpleType === 'boolean'){
+    } else if (simpleType === 'boolean') {
         trueType = '' + simpleType + ' which has a value of: ' + variable;
-    }else if(simpleType === 'undefined'){
+    } else if (simpleType === 'undefined') {
         trueType = 'Undefined';
     }
-    
-    
+
     var fullType = 'variable\'s type is: ' + trueType;
     return fullType;
 }
 
-function printType (variable){
+function printType(variable) {
     var trueType = getFullType(variable);
     console.log(trueType);
 }
 
-function getNumberType(variable){
-    if(isNaN(variable)){
+function getNumberType(variable) {
+    if (isNaN(variable)) {
         return 'Not a Number';
-    }else if(!isFinite(variable)){
+    } else if (!isFinite(variable)) {
         return 'Infinite number';
-    }else{
+    } else {
         var subType = (variable % 1 === 0) ? 'Integer Number' : 'Floating Point Number';
         return subType;
     }
 }
 
-function getObjectInfo(variable){ 
-    if(variable === null){ //catch the typeof null === 'object' bug
+function getObjectInfo(variable) {
+    if (variable === null) { //catch the typeof null === 'object' bug
         return 'Null'
     }
     var objName = '';
-    if(variable.name){
+    if (variable.name) {
         objName = 'It\'s name is: ' + variable.name + '\n';
     }
     var objInfo = 'and it\'s properties are: \n';
-    for(var prop in variable){
+    for (var prop in variable) {
         var value = variable[prop];
         objInfo += prop + ':' + value + '\n'
     }
     return 'Object\n' + objName + objInfo;
 }
 
-function getStringInfo(variable){
+function getStringInfo(variable) {
     //these are for string primitives, not the new String(); form
     var stringInfo = '';
-    
-    if(variable === ''){
+
+    if (variable === '') {
         stringInfo += 'Empty string ';
-    }else if(/^\d+$/.test(variable)) { //regex for checking if string contains only digits
+    } else if (/^\d+$/.test(variable)) { //regex for checking if string contains only digits
         stringInfo += 'Pure positive numeric string ';
-    }else if(/^[a-zA-Z]+$/.test(variable)){
+    } else if (/^[a-zA-Z]+$/.test(variable)) {
         stringInfo += 'Pure alphabetical string ';
-    }else{
+    } else {
         stringInfo += 'Mixed string ';
     }
-    
+
     var length = variable.length;
     stringInfo += 'and has length: ' + length;
     return stringInfo;
 }
-
